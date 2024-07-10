@@ -31,7 +31,9 @@ class Client(db.Model):
 
     @classmethod
     def check_client_by_id(cls, client_id):
-        client = db.session.query(cls).filter(cls.id == client_id).one_or_none()
+        client = (db.session.query(cls)
+                  .filter(cls.id == client_id)
+                  .one_or_none())
         if client:
             return client
         raise NoResultFound("There is no client with this id")
@@ -52,7 +54,9 @@ class Parking(db.Model):
 
     @classmethod
     def check_parking_by_id(cls, parking_id):
-        parking = db.session.query(cls).filter(cls.id == parking_id).one_or_none()
+        parking = (db.session.query(cls)
+                   .filter(cls.id == parking_id)
+                   .one_or_none())
         if parking:
             return parking
         raise NoResultFound("There is no parking with this id")

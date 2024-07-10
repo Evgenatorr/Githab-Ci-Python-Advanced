@@ -23,7 +23,9 @@ class ClientSchema(BaseSchema):
     @validates("car_number")
     def check_len_car_number(self, car_number: str) -> None:
         if len(car_number) > 10:
-            raise ValidationError("the length car_number should not be more than 10")
+            raise ValidationError(
+                "the length car_number should not be more than 10"
+            )
 
     @post_load
     def create_client(self, data: dict, **kwargs) -> Client:

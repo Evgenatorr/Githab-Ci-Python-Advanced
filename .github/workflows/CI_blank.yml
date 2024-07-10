@@ -30,3 +30,6 @@ jobs:
       - name: Lint with flake8
         run: |
           flake8 hw/
+      - name: Lint with mypy
+        run: |
+          mypy hw/
