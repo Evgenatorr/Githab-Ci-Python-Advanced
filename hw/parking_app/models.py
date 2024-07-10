@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from flask_sqlalchemy.model import DefaultMeta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import (
     Column,
@@ -15,8 +16,9 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
+Model: DefaultMeta = db.Model
 
-class Client(db.Model):
+class Client(Model):
     """
     Модель списка клиентов
     """
@@ -40,7 +42,7 @@ class Client(db.Model):
 # type: ignore[name-defined]
 
 
-class Parking(db.Model):
+class Parking(Model):
     """
     Модель описание парковок
     """
@@ -64,7 +66,7 @@ class Parking(db.Model):
 # type: ignore[name-defined]
 
 
-class ClientParking(db.Model):
+class ClientParking(Model):
     """
     Модель описание клиент-парковка
     """
