@@ -11,7 +11,7 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 from sqlalchemy.exc import NoResultFound
-from sqlalchemy.orm import Mapped, relationship
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
