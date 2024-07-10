@@ -42,6 +42,7 @@ def app():
         _db.drop_all()
 
 
+
 @pytest.fixture
 def client(app):
     client = app.test_client()
