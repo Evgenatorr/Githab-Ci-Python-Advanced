@@ -1,6 +1,6 @@
 class AppConfig:
     # SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///parking.db'
+    SQLALCHEMY_DATABASE_URI = "sqlite:///parking.db"
 
 
 class TestConfig(AppConfig):

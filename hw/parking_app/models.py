@@ -8,7 +8,7 @@ from sqlalchemy import (
     VARCHAR,
     BOOLEAN,
     DATETIME,
-    UniqueConstraint
+    UniqueConstraint,
 )
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Mapped, relationship
@@ -21,7 +21,7 @@ class Client(db.Model):
     Модель списка клиентов
     """
 
-    __tablename__: str = 'clients'
+    __tablename__: str = "clients"
 
     id: Mapped[int] = Column(Integer, primary_key=True)
     name: Mapped[str] = Column(VARCHAR(50), nullable=False)
@@ -34,7 +34,7 @@ class Client(db.Model):
         client = db.session.query(cls).filter(cls.id == client_id).one_or_none()
         if client:
             return client
-        raise NoResultFound('There is no client with this id')
+        raise NoResultFound("There is no client with this id")
 
 
 class Parking(db.Model):
@@ -42,7 +42,7 @@ class Parking(db.Model):
     Модель описание парковок
     """
 
-    __tablename__: str = 'parkings'
+    __tablename__: str = "parkings"
 
     id: Mapped[int] = Column(Integer, primary_key=True)
     address: Mapped[str] = Column(VARCHAR(100), unique=True, nullable=False)
@@ -55,7 +55,7 @@ class Parking(db.Model):
         parking = db.session.query(cls).filter(cls.id == parking_id).one_or_none()
         if parking:
             return parking
-        raise NoResultFound('There is no parking with this id')
+        raise NoResultFound("There is no parking with this id")
 
 
 class ClientParking(db.Model):
@@ -63,14 +63,14 @@ class ClientParking(db.Model):
     Модель описание клиент-парковка
     """
 
-    __tablename__: str = 'client_parking'
+    __tablename__: str = "client_parking"
 
     id: Mapped[int] = Column(Integer, primary_key=True)
-    client_id: Mapped[int] = Column(Integer, ForeignKey('clients.id'))
-    parking_id: Mapped[int] = Column(Integer, ForeignKey('parkings.id'))
+    client_id: Mapped[int] = Column(Integer, ForeignKey("clients.id"))
+    parking_id: Mapped[int] = Column(Integer, ForeignKey("parkings.id"))
     time_in: Mapped[datetime] = Column(DATETIME, default=None)
     time_out: Mapped[datetime] = Column(DATETIME, default=None)
-    UniqueConstraint(client_id, parking_id, name='unique_client_parking')
+    UniqueConstraint(client_id, parking_id, name="unique_client_parking")
 
-    parking = relationship('Parking', backref='parkings')
-    client = relationship('Client', backref='clients')
+    parking = relationship("Parking", backref="parkings")
+    client = relationship("Client", backref="clients")

@@ -4,7 +4,7 @@ from marshmallow import (
     validates,
     ValidationError,
     post_load,
-    validates_schema
+    validates_schema,
 )
 
 from .models import Client, ClientParking, Parking
@@ -20,12 +20,10 @@ class ClientSchema(BaseSchema):
     credit_card = fields.Str()
     car_number = fields.Str()
 
-    @validates('car_number')
+    @validates("car_number")
     def check_len_car_number(self, car_number: str) -> None:
         if len(car_number) > 10:
-            raise ValidationError(
-                'the length car_number should not be more than 10'
-            )
+            raise ValidationError("the length car_number should not be more than 10")
 
     @post_load
     def create_client(self, data: dict, **kwargs) -> Client:
@@ -41,17 +39,15 @@ class ParkingSchema(BaseSchema):
     @validates_schema
     def check_available_places(self, data, **kwargs) -> None:
 
-        if data['count_available_places'] > data['count_places']:
+        if data["count_available_places"] > data["count_places"]:
             raise ValidationError(
-                'Count_available_places cannot be greater than count_places'
+                "Count_available_places cannot be greater than count_places"
             )
 
-    @validates('count_places')
+    @validates("count_places")
     def check_len_car_number(self, count_places) -> None:
         if count_places < 1:
-            raise ValidationError(
-                'count_places cannot be less than 1'
-            )
+            raise ValidationError("count_places cannot be less than 1")
 
     @post_load
     def create_parking(self, data: dict, **kwargs) -> Parking:

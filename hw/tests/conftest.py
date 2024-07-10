@@ -6,7 +6,6 @@ from parking_app.models import Client, Parking, ClientParking, db as _db
 from parking_app.config import TestConfig
 
 
-
 @pytest.fixture
 def app():
     _app = create_app(config=TestConfig)
@@ -15,21 +14,13 @@ def app():
         _db.create_all()
 
         test_client = Client(
-            name="name",
-            surname="surname",
-            credit_card='1231234',
-            car_number='3asd123'
+            name="name", surname="surname", credit_card="1231234", car_number="3asd123"
         )
         test_parking = Parking(
-            address="Puskina",
-            count_places=2,
-            count_available_places=2
+            address="Puskina", count_places=2, count_available_places=2
         )
         test_client_parking = ClientParking(
-            client_id=1,
-            parking_id=1,
-            time_in=datetime.now(),
-            time_out=datetime.now()
+            client_id=1, parking_id=1, time_in=datetime.now(), time_out=datetime.now()
         )
 
         _db.session.add(test_client)
@@ -41,7 +32,6 @@ def app():
 
         _db.session.close()
         _db.drop_all()
-
 
 
 @pytest.fixture
