@@ -16,11 +16,11 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
-Model: DefaultMeta = db.Model
+Model: DefaultMeta = db.Model  # type: ignore[valid-type,misc]
 
 
-class Client(Model):
-    # type: ignore[valid-type,misc]
+class Client(Model):  # type: ignore[valid-type,misc]
+
     """
     Модель списка клиентов
     """
