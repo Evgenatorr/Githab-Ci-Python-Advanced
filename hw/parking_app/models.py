@@ -18,6 +18,7 @@ db = SQLAlchemy()
 
 Model: DefaultMeta = db.Model
 
+
 class Client(Model):
     """
     Модель списка клиентов
