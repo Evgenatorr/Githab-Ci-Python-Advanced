@@ -23,11 +23,11 @@ class Client(db.Model):
 
     __tablename__: str = "clients"
 
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    name: Mapped[str] = Column(VARCHAR(50), nullable=False)
-    surname: Mapped[str] = Column(VARCHAR(50), nullable=False)
-    credit_card: Mapped[str] = Column(VARCHAR(50), default=None)
-    car_number: Mapped[str] = Column(VARCHAR(10))
+    id: Column[int] = Column(Integer, primary_key=True)
+    name: Column[str] = Column(VARCHAR(50), nullable=False)
+    surname: Column[str] = Column(VARCHAR(50), nullable=False)
+    credit_card: Column[str] = Column(VARCHAR(50), default=None)
+    car_number: Column[str] = Column(VARCHAR(10))
 
     @classmethod
     def check_client_by_id(cls, client_id):
@@ -46,11 +46,11 @@ class Parking(db.Model):
 
     __tablename__: str = "parkings"
 
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    address: Mapped[str] = Column(VARCHAR(100), unique=True, nullable=False)
-    opened: Mapped[bool] = Column(BOOLEAN, default=True)
-    count_places: Mapped[int] = Column(Integer, nullable=False)
-    count_available_places: Mapped[int] = Column(Integer)
+    id: Column[int] = Column(Integer, primary_key=True)
+    address: Column[str] = Column(VARCHAR(100), unique=True, nullable=False)
+    opened: Column[bool] = Column(BOOLEAN, default=True)
+    count_places: Column[int] = Column(Integer, nullable=False)
+    count_available_places: Column[int] = Column(Integer)
 
     @classmethod
     def check_parking_by_id(cls, parking_id):
@@ -69,11 +69,11 @@ class ClientParking(db.Model):
 
     __tablename__: str = "client_parking"
 
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    client_id: Mapped[int] = Column(Integer, ForeignKey("clients.id"))
-    parking_id: Mapped[int] = Column(Integer, ForeignKey("parkings.id"))
-    time_in: Mapped[datetime] = Column(DATETIME, default=None)
-    time_out: Mapped[datetime] = Column(DATETIME, default=None)
+    id: Column[int] = Column(Integer, primary_key=True)
+    client_id: Column[int] = Column(Integer, ForeignKey("clients.id"))
+    parking_id: Column[int] = Column(Integer, ForeignKey("parkings.id"))
+    time_in: Column[datetime] = Column(DATETIME, default=None)
+    time_out: Column[datetime] = Column(DATETIME, default=None)
     UniqueConstraint(client_id, parking_id, name="unique_client_parking")
 
     parking = relationship("Parking", backref="parkings")
