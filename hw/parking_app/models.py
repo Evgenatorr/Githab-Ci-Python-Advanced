@@ -20,6 +20,7 @@ Model: DefaultMeta = db.Model
 
 
 class Client(Model):
+    # type: ignore[valid-type,misc]
     """
     Модель списка клиентов
     """
@@ -40,10 +41,10 @@ class Client(Model):
         if client:
             return client
         raise NoResultFound("There is no client with this id")
-# type: ignore[valid-type,misc]
 
 
 class Parking(Model):
+    # type: ignore[valid-type,misc]
     """
     Модель описание парковок
     """
@@ -64,10 +65,10 @@ class Parking(Model):
         if parking:
             return parking
         raise NoResultFound("There is no parking with this id")
-# type: ignore[valid-type,misc]
 
 
 class ClientParking(Model):
+    # type: ignore[valid-type,misc]
     """
     Модель описание клиент-парковка
     """
@@ -83,4 +84,3 @@ class ClientParking(Model):
 
     parking = relationship("Parking", backref="parkings")
     client = relationship("Client", backref="clients")
-# type: ignore[valid-type,misc]
