@@ -6,6 +6,7 @@ from parking_app.models import Client, Parking, ClientParking, db as _db
 from parking_app.config import TestConfig
 
 
+
 @pytest.fixture
 def app():
     _app = create_app(config=TestConfig)
