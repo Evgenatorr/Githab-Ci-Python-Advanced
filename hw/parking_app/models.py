@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from flask_sqlalchemy.model import DefaultMeta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import (
     Column,
@@ -15,8 +16,9 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
+BaseModel: DefaultMeta = db.Model
 
-class Client(db.Model):
+class Client(BaseModel):
     """
     Модель списка клиентов
     """
@@ -39,7 +41,7 @@ class Client(db.Model):
         raise NoResultFound("There is no client with this id")
 
 
-class Parking(db.Model):
+class Parking(BaseModel):
     """
     Модель описание парковок
     """
@@ -62,7 +64,7 @@ class Parking(db.Model):
         raise NoResultFound("There is no parking with this id")
 
 
-class ClientParking(db.Model):
+class ClientParking(BaseModel):
     """
     Модель описание клиент-парковка
     """
