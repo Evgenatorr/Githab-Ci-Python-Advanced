@@ -6,7 +6,10 @@ from datetime import datetime
 from flask import jsonify, request
 from sqlalchemy.exc import NoResultFound, IntegrityError
 
-from .schemas import ClientSchema, ParkingSchema, ClientParkingSchema, ValidationError
+from .schemas import (ClientSchema,
+                      ParkingSchema,
+                      ClientParkingSchema,
+                      ValidationError)
 
 
 def create_app(config) -> Flask:
@@ -43,7 +46,8 @@ def create_app(config) -> Flask:
         """
 
         client_schema = ClientSchema()
-        client = (db.session.query(Client).filter(Client.id == client_id)
+        client = (db.session.query(Client)
+                  .filter(Client.id == client_id)
                   .one_or_none())
 
         if client is None:
@@ -92,7 +96,9 @@ def create_app(config) -> Flask:
         parkings = db.session.query(Parking).all()
 
         if len(parkings) < 1:
-            return jsonify(ParkingsNotFound="Parkings not found"), 404
+            return jsonify(
+                ParkingsNotFound="Parkings not found"
+            ), 404
 
         return parking_schema.dump(parkings, many=True)
 
@@ -109,7 +115,9 @@ def create_app(config) -> Flask:
         )
 
         if parking is None:
-            return jsonify(ParkingNotFound="Parking with this id not found"), 404
+            return jsonify(
+                ParkingNotFound="Parking with this id not found"
+            ), 404
 
         return parking_schema.dump(parking)
 
@@ -172,7 +180,8 @@ def create_app(config) -> Flask:
         except NoResultFound as exc:
             return jsonify(error=exc.args), 404
 
-        # проверяем что на парковке открыта (закрывается когда места на парковке кончаются)
+        # проверяем что на парковке открыта
+        # (закрывается когда места на парковке кончаются)
         if parking.opened is False:
             return jsonify(error="There are no seats"), 400
 
@@ -185,10 +194,13 @@ def create_app(config) -> Flask:
             .first()
         )
 
-        # проверяем что клиента нет на этой парковке и обновляем время заезда и обнуляем время выезда
+        # проверяем что клиента нет на этой парковке и
+        # обновляем время заезда и обнуляем время выезда
         if client_parking is not None:
             if client_parking.time_out is None:
-                return jsonify(error="The client is already in the parking lot"), 400
+                return jsonify(
+                    error="The client is already in the parking lot"
+                ), 400
             time_in = datetime.now()
             client_parking.time_in = time_in
             client_parking.time_out = None
@@ -245,18 +257,23 @@ def create_app(config) -> Flask:
 
         except NoResultFound:
             return (
-                jsonify(NoResultFound="Such client parking connection not found"),
-                404,
+                jsonify(
+                    NoResultFound="Such client parking connection not found"
+                ), 404
             )
 
         # Если время выезда установлено значит клиент уже не на парковке
         if client_parking.time_out is not None:
-            return jsonify(error="The client has already left the parking lot"), 400
+            return jsonify(
+                error="The client has already left the parking lot"
+            ), 400
 
         # Проверяем что у клиента привязана карта
         if client_parking.client.credit_card is None:
             db.session.rollback()
-            return jsonify(NotCreditCard="The client does not have a credit card"), 404
+            return jsonify(
+                NotCreditCard="The client does not have a credit card"
+            ), 404
 
         client_parking.parking.count_available_places += 1
         date_out = datetime.now()
