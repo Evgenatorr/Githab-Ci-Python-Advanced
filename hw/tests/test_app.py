@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from parking_app.models import Client, Parking, ClientParking
+from parking_app.models import Parking, ClientParking
 
 @pytest.mark.parametrize("route", ["/clients", "/clients/1", "/parkings", "/parkings/1"])
 def test_route_status(client, route):
