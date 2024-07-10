@@ -52,8 +52,8 @@ def create_app(config) -> Flask:
 
         if client is None:
             return jsonify(
-                ClientNotFound=
-                "Client with this id not found"
+                ClientNotFound="Client with \
+                                this id not found"
             ), 404
 
         return client_schema.dump(client), 200

@@ -52,7 +52,8 @@ def test_parking_entrance(client, db):
     # Проверяем что количество мест на парковке 1 уменьшилось
     assert parking.count_available_places == 1
 
-    # Проверяем что ещё одной такой же связки client_id и parking_id бы ть не может
+    # Проверяем что ещё одной такой же связки
+    # client_id и parking_id быть не может
     response = client.post("/client_parkings", json=client_parking_data)
     assert response.status_code == 400
 
