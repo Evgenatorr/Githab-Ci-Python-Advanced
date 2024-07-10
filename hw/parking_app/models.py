@@ -16,11 +16,10 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
-Model: DefaultMeta = db.Model  # type: ignore[valid-type,misc]
+Model: DefaultMeta = db.Model  # type: ignore[assignment]
 
 
 class Client(Model):  # type: ignore[valid-type,misc]
-
     """
     Модель списка клиентов
     """
@@ -43,8 +42,7 @@ class Client(Model):  # type: ignore[valid-type,misc]
         raise NoResultFound("There is no client with this id")
 
 
-class Parking(Model):
-    # type: ignore[valid-type,misc]
+class Parking(Model):  # type: ignore[valid-type,misc]
     """
     Модель описание парковок
     """
@@ -67,8 +65,7 @@ class Parking(Model):
         raise NoResultFound("There is no parking with this id")
 
 
-class ClientParking(Model):
-    # type: ignore[valid-type,misc]
+class ClientParking(Model):  # type: ignore[valid-type,misc]
     """
     Модель описание клиент-парковка
     """
